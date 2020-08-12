@@ -50,7 +50,7 @@ func runRebuildIndex(gopts GlobalOptions) error {
 }
 
 func rebuildIndex(ctx context.Context, repo restic.Repository, ignorePacks restic.IDSet) error {
-	Verbosef("counting files in repo\n")
+	Verbosef("Counting files in repo\n")
 
 	var packs uint64
 	err := repo.List(ctx, restic.DataFile, func(restic.ID, int64) error {
@@ -86,12 +86,12 @@ func rebuildIndex(ctx context.Context, repo restic.Repository, ignorePacks resti
 
 	ids, err := idx.Save(ctx, repo, supersedes)
 	if err != nil {
-		return errors.Fatalf("unable to save index, last error was: %v", err)
+		return errors.Fatalf("Unable to save index, last error was: %v", err)
 	}
 
-	Verbosef("saved new indexes as %v\n", ids)
+	Verbosef("Saved new indexes as %v\n", ids)
 
-	Verbosef("remove %d old index files\n", len(supersedes))
+	Verbosef("Removed %d old index files\n", len(supersedes))
 	DeleteFiles(globalOptions, repo, restic.NewIDSet(supersedes...), restic.IndexFile)
 
 	return nil
